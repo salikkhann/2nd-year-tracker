@@ -222,7 +222,7 @@
                         <option value="Reproductive">Reproductive</option>
                         <option value="Renal">Renal</option>
                         <option value="Head & Neck">Head & Neck</option>
-                        <option value="Neuroscience">Neuroscience</option>
+                        <option value="Neurosciences">Neurosciences</option>
                         <option value="General Education">General Education</option>
                     </select>
                 </div>
@@ -366,7 +366,7 @@
 
         // --- Data: Personal Tracker Config ---
         const personalTrackerModules = [
-            { id: "Neuroscience", name: "Neurosciences", icon: "fa-brain" },
+            { id: "Neurosciences", name: "Neurosciences", icon: "fa-brain" },
             { id: "Head & Neck", name: "Head & Neck", icon: "fa-user-tie" },
             { id: "Endocrinology", name: "Endocrinology", icon: "fa-dna" },
             { id: "GIT", name: "GIT & Liver", icon: "fa-utensils" },
@@ -598,7 +598,7 @@
             },
             {
                 id: "neuro",
-                name: "Neuroscience",
+                name: "Neurosciences",
                 subjects: [
                     {
                         name: "Gross Anatomy",
@@ -831,7 +831,7 @@
                 const filteredData = filterValue === 'all' ? checklistData : checklistData.filter(i => {
                     if(filterValue === "GIT" && i.module === "GIT") return true;
                     if(filterValue === "Renal" && i.module === "Renal") return true;
-                    if(filterValue === "Neuroscience" && i.module === "Neuroscience") return true;
+                    if(filterValue === "Neurosciences" && i.module === "Neurosciences") return true;
                     if(filterValue === "Head & Neck" && i.module === "Head & Neck") return true;
                     if(filterValue === "Endocrinology" && i.module === "Endocrinology") return true;
                     if(filterValue === "Reproductive" && i.module === "Reproductive") return true;
@@ -1042,4 +1042,5 @@
 </body>
 
 </html>
+
 
