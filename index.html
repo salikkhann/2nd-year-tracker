@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-KWM7MYWKRQ"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
 
-      gtag('config', 'G-KWM7MYWKRQ');
+        gtag('config', 'G-KWM7MYWKRQ');
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,12 +20,43 @@
         }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
-        body { font-family: 'Inter', sans-serif; }
-        .serif { font-family: 'Playfair Display', serif; }
-        
+
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(-45deg, #020617, #0f172a, #1e1b4b, #020617);
+            background-size: 400% 400%;
+            animation: gradient 20s ease infinite;
+            background-attachment: fixed;
+        }
+
+        .light-mode-bg {
+            background: linear-gradient(-45deg, #f8fafc, #e0f2fe, #eff6ff, #f8fafc);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+        }
+
+        .serif {
+            font-family: 'Playfair Display', serif;
+        }
+
         /* Chart Container Styling */
         .chart-container {
             position: relative;
@@ -35,6 +67,7 @@
             height: 300px;
             max-height: 400px;
         }
+
         @media (min-width: 768px) {
             .chart-container {
                 height: 350px;
@@ -42,50 +75,105 @@
         }
 
         /* Checkbox Styling */
-        .checklist-item.checked { 
-            background-color: rgba(241, 245, 249, 0.5); 
+        .checklist-item.checked {
+            background-color: rgba(241, 245, 249, 0.5);
         }
+
         .dark .checklist-item.checked {
             background-color: rgba(30, 41, 59, 0.5);
         }
 
         /* Strikethrough Logic */
-        .checklist-item.checked p { 
-            text-decoration: line-through; 
+        .checklist-item.checked p {
+            text-decoration: line-through;
             text-decoration-thickness: 2px;
             opacity: 0.6;
-            color: #9ca3af; 
+            color: #9ca3af;
         }
+
         .dark .checklist-item.checked p {
             color: #64748b;
         }
-        
-        .checklist-item.checked .check-circle { background-color: #10b981; border-color: #10b981; }
-        .checklist-item.checked .viva-badge { opacity: 0.5; }
-        
+
+        .checklist-item.checked .check-circle {
+            background-color: #10b981;
+            border-color: #10b981;
+        }
+
+        .checklist-item.checked .viva-badge {
+            opacity: 0.5;
+        }
+
         /* Personal Tracker Styles */
         .personal-tracker-card {
             transition: all 0.2s;
         }
+
         .personal-tracker-card:hover {
             transform: translateY(-2px);
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
         }
 
         /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
-        
-        .dark ::-webkit-scrollbar-thumb { background: #475569; }
-        .dark ::-webkit-scrollbar-thumb:hover { background: #64748b; }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        .dark ::-webkit-scrollbar-thumb {
+            background: #475569;
+        }
+
+        .dark ::-webkit-scrollbar-thumb:hover {
+            background: #64748b;
+        }
+
+        /* Glassmorphism Classes */
+        /* Glassmorphism Classes */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.65);
+            -webkit-backdrop-filter: blur(16px);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .dark .glass-card {
+            background: rgba(15, 23, 42, 0.45);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Accordion Styles */
+        details>summary {
+            list-style: none;
+        }
+
+        details>summary::-webkit-details-marker {
+            display: none;
+        }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-200 transition-colors duration-300">
+
+<body
+    class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-200 transition-colors duration-300 light-mode-bg"
+    id="main-body">
 
     <!-- Navbar -->
-    <nav class="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 sticky top-0 z-50 shadow-sm transition-colors duration-300">
+    <nav
+        class="bg-white/80 dark:bg-slate-900/60 border-b border-slate-200/50 dark:border-slate-800/50 sticky top-0 z-50 shadow-sm transition-colors duration-300 backdrop-blur-md">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-20 items-center">
                 <div class="flex items-center gap-4">
@@ -93,24 +181,30 @@
                         <i class="fa-solid fa-stethoscope text-2xl"></i>
                     </div>
                     <div>
-                        <h1 class="font-extrabold text-xl sm:text-2xl text-slate-900 dark:text-white tracking-tight leading-none" id="student-name-display">Welcome, Medical Student</h1>
-                        <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-medium mt-0.5">2nd Year MBBS • Dow Exam Preparation</p>
+                        <h1 class="font-extrabold text-xl sm:text-2xl text-slate-900 dark:text-white tracking-tight leading-none"
+                            id="student-name-display">Welcome, Medical Student</h1>
+                        <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-medium mt-0.5">2nd Year
+                            MBBS • Dow Exam Preparation</p>
                     </div>
                 </div>
                 <div class="flex items-center gap-4">
                     <!-- Edit Profile Button -->
-                    <button onclick="editProfile()" class="text-xs font-semibold text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 underline">
+                    <button onclick="editProfile()"
+                        class="text-xs font-semibold text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 underline">
                         Edit Profile
                     </button>
 
                     <!-- Dark Mode Toggle -->
-                    <button onclick="toggleDarkMode()" class="p-2 rounded-full text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800 transition-colors focus:outline-none">
+                    <button onclick="toggleDarkMode()"
+                        class="p-2 rounded-full text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800 transition-colors focus:outline-none">
                         <i id="theme-icon" class="fa-solid fa-moon text-lg"></i>
                     </button>
 
-                    <div class="text-right hidden md:block border-l border-slate-200 dark:border-slate-700 pl-4 ml-2">
-                        <div class="text-[10px] font-bold uppercase text-slate-400 dark:text-slate-500 tracking-wider">Mastery</div>
-                        <div class="text-xl font-black text-emerald-600 dark:text-emerald-500 leading-none" id="global-progress">0%</div>
+                    <div class="text-right block border-l border-slate-200 dark:border-slate-700 pl-4 ml-2">
+                        <div class="text-[10px] font-bold uppercase text-slate-400 dark:text-slate-500 tracking-wider">
+                            Mastery</div>
+                        <div class="text-xl font-black text-emerald-600 dark:text-emerald-500 leading-none"
+                            id="global-progress">0%</div>
                     </div>
                 </div>
             </div>
@@ -121,46 +215,77 @@
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
 
         <!-- Setup Modal (Hidden by default, shown if no data) -->
-        <div id="setup-modal" class="fixed inset-0 bg-black/80 z-[100] hidden flex items-center justify-center backdrop-blur-sm">
-            <div class="bg-white dark:bg-slate-900 rounded-xl shadow-2xl p-8 max-w-md w-full mx-4 border border-slate-200 dark:border-slate-700">
-                <div class="text-center mb-6">
-                    <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center mx-auto mb-4 text-blue-600 dark:text-blue-400">
-                        <i class="fa-solid fa-user-doctor text-3xl"></i>
-                    </div>
-                    <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Setup Your Tracker</h2>
-                    <p class="text-slate-500 dark:text-slate-400 text-sm mt-2">Enter your details to customize your exam schedule.</p>
+        <div id="setup-modal"
+            class="fixed inset-0 bg-slate-900/60 z-[100] hidden flex items-center justify-center backdrop-blur-sm transition-opacity duration-300">
+            <div
+                class="glass-card rounded-2xl shadow-2xl p-8 max-w-md w-full mx-4 border border-white/20 relative overflow-hidden transform transition-all scale-100">
+
+                <!-- Shine Effect -->
+                <div
+                    class="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/50 to-transparent opacity-50">
                 </div>
-                
-                <div class="space-y-4">
+
+                <div class="text-center mb-6 relative">
+                    <div
+                        class="w-20 h-20 bg-gradient-to-br from-blue-500/20 to-indigo-500/20 rounded-full flex items-center justify-center mx-auto mb-4 text-blue-500 shadow-inner ring-1 ring-white/10">
+                        <i class="fa-solid fa-user-doctor text-4xl drop-shadow-md"></i>
+                    </div>
+                    <h2 class="text-3xl font-bold text-slate-800 dark:text-white tracking-tight">Setup Your Tracker</h2>
+                    <p class="text-slate-500 dark:text-slate-300 text-sm mt-3 font-medium">Enter your details to
+                        customize your exam schedule.</p>
+                </div>
+
+                <div class="space-y-5 relative">
                     <div>
-                        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Your Name</label>
-                        <input type="text" id="input-name" class="w-full px-4 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none" placeholder="e.g. Dr. Ali">
+                        <label
+                            class="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5 ml-1">Your
+                            Name</label>
+                        <input type="text" id="input-name"
+                            class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-white/10 bg-white/50 dark:bg-slate-900/50 text-slate-900 dark:text-white placeholder-slate-400 focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 outline-none backdrop-blur-sm transition-all"
+                            placeholder="e.g. Dr. Ali">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Roll Number (1-360)</label>
-                        <input type="number" id="input-roll" class="w-full px-4 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none" placeholder="e.g. 145">
-                        <p class="text-xs text-slate-500 mt-1">Used to calculate your specific OSPE/VIVA dates.</p>
+                        <label
+                            class="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5 ml-1">Roll
+                            Number (1-360)</label>
+                        <input type="number" id="input-roll"
+                            class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-white/10 bg-white/50 dark:bg-slate-900/50 text-slate-900 dark:text-white placeholder-slate-400 focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 outline-none backdrop-blur-sm transition-all"
+                            placeholder="e.g. 145">
+                        <p class="text-[10px] text-slate-400 mt-2 ml-1 opacity-80 flex items-center gap-1">
+                            <i class="fa-solid fa-circle-info"></i> Used to calculate your specific OSPE/VIVA dates.
+                        </p>
                     </div>
-                    <button onclick="saveProfile()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg transition-all transform hover:scale-[1.02]">
+                    <button onclick="saveProfile()"
+                        class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-blue-500/30 transition-all transform hover:scale-[1.02] active:scale-[0.98] mt-2 border border-white/20">
                         Start Tracking
                     </button>
+                    <p class="text-center text-[10px] text-slate-400 opacity-60">Your data is stored locally on your
+                        device.</p>
                 </div>
             </div>
         </div>
 
         <!-- Professional Motivation Section -->
-        <section class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl shadow-xl overflow-hidden relative group border border-slate-700">
+        <section
+            class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl shadow-xl overflow-hidden relative group border border-slate-700">
             <!-- Background Elements -->
-            <div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
-            <div class="absolute bottom-0 left-0 w-48 h-48 bg-blue-500/10 rounded-full blur-2xl translate-y-1/2 -translate-x-1/2"></div>
-            
+            <div
+                class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2">
+            </div>
+            <div
+                class="absolute bottom-0 left-0 w-48 h-48 bg-blue-500/10 rounded-full blur-2xl translate-y-1/2 -translate-x-1/2">
+            </div>
+
             <div class="relative z-10 p-10 md:p-14 flex flex-col items-center text-center justify-center min-h-[220px]">
-                <h2 class="text-2xl md:text-3xl lg:text-4xl font-medium text-slate-100 mb-4 leading-relaxed max-w-4xl drop-shadow-md serif italic text-center">
+                <h2
+                    class="text-2xl md:text-3xl lg:text-4xl font-medium text-slate-100 mb-4 leading-relaxed max-w-4xl drop-shadow-md serif italic text-center">
                     "And whoever saves one life, it is as if he has saved mankind entirely."
                 </h2>
-                <p class="text-sm font-bold tracking-widest text-blue-400 uppercase opacity-90 mt-2 mb-6">— Quran 5:32</p>
+                <p class="text-sm font-bold tracking-widest text-blue-400 uppercase opacity-90 mt-2 mb-6">— Quran 5:32
+                </p>
                 <p class="text-slate-300 text-sm md:text-base max-w-2xl leading-relaxed text-center opacity-80">
-                    You have to do this. Even if you don't like it right now, one day this knowledge might be the tool you use to save a life.
+                    You have to do this. Even if you don't like it right now, one day this knowledge might be the tool
+                    you use to save a life.
                 </p>
             </div>
         </section>
@@ -171,11 +296,12 @@
                 <h2 class="text-lg font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
                     <i class="fa-solid fa-chart-pie text-blue-600"></i> Module Status
                 </h2>
-                <button onclick="resetPersonalTracker()" class="text-xs font-semibold text-rose-500 hover:text-rose-700 dark:hover:text-rose-400 hover:underline transition-colors">
+                <button onclick="resetPersonalTracker()"
+                    class="text-xs font-semibold text-rose-500 hover:text-rose-700 dark:hover:text-rose-400 hover:underline transition-colors">
                     Reset Data
                 </button>
             </div>
-            
+
             <!-- Auto-fit grid for better responsiveness, handling 7 items neatly -->
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" id="personal-tracker-grid">
                 <!-- Cards injected via JS -->
@@ -185,15 +311,18 @@
         <!-- Section 1: Strategic Dashboard -->
         <section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <!-- Countdown Card -->
-            <div class="bg-white dark:bg-slate-900 rounded-xl shadow-sm p-6 border border-slate-100 dark:border-slate-800 flex flex-col justify-center">
-                <div class="flex justify-between items-center mb-4 border-b border-slate-100 dark:border-slate-800 pb-2">
+            <div class="glass-card rounded-xl shadow-sm p-6 flex flex-col justify-center">
+                <div
+                    class="flex justify-between items-center mb-4 border-b border-slate-100 dark:border-slate-800 pb-2">
                     <h2 class="text-lg font-bold text-slate-800 dark:text-slate-100">Exam Schedule</h2>
-                    <div class="mt-4 text-sm text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-slate-800 p-2 rounded border border-slate-200 dark:border-slate-700 flex items-center gap-2">
+                    <div
+                        class="mt-4 text-sm text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-slate-800 p-2 rounded border border-slate-200 dark:border-slate-700 flex items-center gap-2">
                         <span class="font-semibold uppercase text-[10px]">Your Group:</span>
-                        <span class="font-bold text-blue-700 dark:text-blue-400 text-xs" id="student-group-display">--</span>
+                        <span class="font-bold text-blue-700 dark:text-blue-400 text-xs"
+                            id="student-group-display">--</span>
                     </div>
                 </div>
-                
+
                 <!-- Exam Grid -->
                 <div id="exam-grid" class="grid grid-cols-2 sm:grid-cols-3 gap-3 text-center">
                     <!-- Cards injected via JS -->
@@ -201,12 +330,14 @@
             </div>
 
             <!-- Visualization: Total Exam Prep -->
-            <div class="bg-white dark:bg-slate-900 rounded-xl shadow-sm p-6 border border-slate-100 dark:border-slate-800">
+            <div class="glass-card rounded-xl shadow-sm p-6">
                 <div class="flex justify-between items-start mb-2">
                     <h2 class="text-lg font-bold text-slate-800 dark:text-slate-100">Total Syllabus Coverage</h2>
-                    <span class="text-xs bg-emerald-100 text-emerald-700 dark:bg-emerald-900 dark:text-emerald-300 font-bold px-2 py-1 rounded">LIVE</span>
+                    <span
+                        class="text-xs bg-emerald-100 text-emerald-700 dark:bg-emerald-900 dark:text-emerald-300 font-bold px-2 py-1 rounded">LIVE</span>
                 </div>
-                <p class="text-xs text-slate-500 dark:text-slate-400 mb-4">Completion of 2nd Year Science Modules (Excludes Gen Ed).</p>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mb-4">Completion of 2nd Year Science Modules
+                    (Excludes Gen Ed).</p>
                 <div class="chart-container">
                     <canvas id="prepChart"></canvas>
                 </div>
@@ -214,8 +345,9 @@
         </section>
 
         <!-- Section 3: Master Tracker -->
-        <section id="checklist-section" class="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-100 dark:border-slate-800">
-            <div class="px-6 py-6 border-b border-slate-200 dark:border-slate-800 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <section id="checklist-section" class="glass-card rounded-xl shadow-sm">
+            <div
+                class="px-6 py-6 border-b border-slate-200 dark:border-slate-800 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div>
                     <h2 class="text-xl font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
                         <i class="fa-solid fa-list-check text-emerald-600"></i> Syllabus Checklist
@@ -223,19 +355,20 @@
                     <p class="text-sm text-slate-500 dark:text-slate-400">Tick items as you complete them.</p>
                 </div>
                 <div class="flex gap-2">
-                    <select id="checklist-filter" class="bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-200 text-sm font-semibold rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5">
+                    <select id="checklist-filter"
+                        class="bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-200 text-sm font-semibold rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5">
                         <option value="all">View All Modules</option>
-                        <option value="GIT">GIT & Liver</option>
-                        <option value="Endocrinology">Endocrinology</option>
-                        <option value="Reproductive">Reproductive</option>
-                        <option value="Renal">Renal</option>
-                        <option value="Head & Neck">Head & Neck</option>
                         <option value="Neurosciences">Neurosciences</option>
+                        <option value="Head & Neck">Head & Neck</option>
+                        <option value="Endocrinology">Endocrinology</option>
+                        <option value="GIT & Liver">GIT & Liver</option>
+                        <option value="Renal">Renal</option>
+                        <option value="Reproductive">Reproductive</option>
                         <option value="General Education">General Education</option>
                     </select>
                 </div>
             </div>
-            
+
             <div class="p-0">
                 <div id="checklist-container" class="divide-y divide-slate-100 dark:divide-slate-800">
                     <!-- Checklist items injected via JS -->
@@ -247,7 +380,8 @@
 
     <!-- Footer -->
     <footer class="bg-slate-900 dark:bg-black text-slate-400 py-10 mt-12 text-center border-t border-slate-800">
-        <p class="mb-3 text-lg text-slate-300 italic serif">"The pain of discipline is far less than the pain of regret."</p>
+        <p class="mb-3 text-lg text-slate-300 italic serif">"The pain of discipline is far less than the pain of
+            regret."</p>
         <p class="text-xs text-slate-600 uppercase tracking-widest">2nd Year MBBS Examination Tracker</p>
     </footer>
 
@@ -285,12 +419,12 @@
 
         function updateUIWithProfile() {
             document.getElementById('student-name-display').innerText = `Welcome, ${studentProfile.name}`;
-            
+
             let group = "Unknown";
-            if(studentProfile.roll <= 120) group = "Group 1 (Day 1)";
-            else if(studentProfile.roll <= 240) group = "Group 2 (Day 2)";
+            if (studentProfile.roll <= 117) group = "Group 1 (Day 1)";
+            else if (studentProfile.roll <= 234) group = "Group 2 (Day 2)";
             else group = "Group 3 (Day 3)";
-            
+
             document.getElementById('student-group-display').innerText = `${group} - Roll ${studentProfile.roll}`;
         }
 
@@ -302,31 +436,32 @@
 
             if (studentProfile) {
                 const roll = studentProfile.roll;
-                if (roll <= 120) {
+                if (roll <= 117) {
                     // Day 1
                     ospe1Date = "2026-01-22";
                     ospe2Date = "2026-02-06";
-                } else if (roll <= 240) {
+                } else if (roll <= 234) {
                     // Day 2
                     ospe1Date = "2026-01-23";
                     ospe2Date = "2026-02-07";
                 } else {
                     // Day 3
                     ospe1Date = "2026-01-24";
-                    ospe2Date = "2026-02-09"; 
+                    ospe2Date = "2026-02-09";
                 }
             }
 
+            // Time Logic: Modules at 15:00, OSPE/VIVA at 09:00
             return [
-                { name: "Neurosciences", date: "2026-01-13", color: "indigo" },
-                { name: "Head & Neck", date: "2026-01-16", color: "blue" },
-                { name: "Endocrinology", date: "2026-01-19", color: "purple" },
-                { name: "OSPE/VIVA 1", date: ospe1Date, color: "rose" },
-                { name: "GIT & Liver", date: "2026-01-27", color: "orange" },
-                { name: "Renal", date: "2026-01-29", color: "cyan" },
-                { name: "Reproductive", date: "2026-02-02", color: "pink" },
-                { name: "OSPE/VIVA 2", date: ospe2Date, color: "rose" },
-                { name: "Gen Education", date: "2026-02-11", color: "emerald" }
+                { name: "Neurosciences", date: "2026-01-13T15:00:00", color: "indigo" },
+                { name: "Head & Neck", date: "2026-01-16T15:00:00", color: "blue" },
+                { name: "Endocrinology", date: "2026-01-19T15:00:00", color: "purple" },
+                { name: "OSPE/VIVA 1", date: `${ospe1Date}T09:00:00`, color: "rose" },
+                { name: "GIT & Liver", date: "2026-01-27T15:00:00", color: "orange" },
+                { name: "Renal", date: "2026-01-29T15:00:00", color: "cyan" },
+                { name: "Reproductive", date: "2026-02-02T15:00:00", color: "pink" },
+                { name: "OSPE/VIVA 2", date: `${ospe2Date}T09:00:00`, color: "rose" },
+                { name: "Gen Education", date: "2026-02-11T15:00:00", color: "emerald" }
             ];
         }
 
@@ -334,7 +469,7 @@
         function toggleDarkMode() {
             const html = document.documentElement;
             const icon = document.getElementById('theme-icon');
-            
+
             if (html.classList.contains('dark')) {
                 html.classList.remove('dark');
                 localStorage.setItem('theme', 'light');
@@ -348,6 +483,14 @@
                 icon.classList.add('fa-sun');
                 updateChartTheme(true);
             }
+
+            // Background mesh toggle
+            const body = document.getElementById('main-body');
+            if (html.classList.contains('dark')) {
+                body.classList.remove('light-mode-bg');
+            } else {
+                body.classList.add('light-mode-bg');
+            }
         }
 
         function initTheme() {
@@ -358,13 +501,13 @@
 
             if (savedTheme === 'dark' || (!savedTheme && systemDark)) {
                 html.classList.add('dark');
-                if(icon) {
+                if (icon) {
                     icon.classList.remove('fa-moon');
                     icon.classList.add('fa-sun');
                 }
             } else {
                 html.classList.remove('dark');
-                 if(icon) {
+                if (icon) {
                     icon.classList.remove('fa-sun');
                     icon.classList.add('fa-moon');
                 }
@@ -385,6 +528,154 @@
 
         // --- Data: Full Syllabus ---
         const rawModulesData = [
+            {
+                id: "neuro",
+                name: "Neurosciences",
+                subjects: [
+                    {
+                        name: "Gross Anatomy",
+                        viva: true,
+                        topics: ["Skull & Cranial Fossae", "Meninges", "Spinal Cord (Gross, Tracts)", "Brainstem (Medulla, Pons, Midbrain)", "Cranial Nerve Nuclei", "Cerebellum (Gross)", "Diencephalon (Thalamus/Hypothalamus)", "Cerebral Cortex (Functional Areas)", "Basal Nuclei", "Internal Capsule", "Blood Supply (Circle of Willis)", "Ventricles & CSF", "Limbic System"]
+                    },
+                    {
+                        name: "Physiology",
+                        viva: true,
+                        topics: ["Neuron Potentials", "Synapse", "Sensory Pathways (DCML, AL)", "Motor Pathways (Corticospinal)", "Reflexes", "Cerebellum Functions", "Basal Ganglia Functions", "Hypothalamus/Thalamus", "Sleep/EEG", "ANS", "Pain Pathway"]
+                    },
+                    {
+                        name: "Biochemistry",
+                        viva: true,
+                        topics: ["Neurotransmitters", "Neurotropic Vitamins (B1, B6, B12)", "Blood Brain Barrier", "Brain Metabolism", "Dopamine & Parkinsonism", "Serotonin & Pain", "Neurolipids"]
+                    },
+                    {
+                        name: "Pathology",
+                        viva: false,
+                        topics: ["Cellular Pathology of CNS", "Cerebral Edema/Herniation", "Traumatic Injury", "Cerebrovascular Disease (Stroke)", "CNS Infections (Meningitis)", "Prion Disease", "Neuromuscular Junction Disorders"]
+                    },
+                    {
+                        name: "Embryology",
+                        viva: true,
+                        topics: ["Development of the Nervous System", "Development of the Brain", "Developmental Anomalies"]
+                    },
+                    {
+                        name: "Histology",
+                        viva: true,
+                        topics: ["Nervous Tissue", "Cerebellar Cortex", "Cerebral Cortex"]
+                    },
+                    {
+                        name: "Pharmacology",
+                        viva: false,
+                        topics: ["Neurotransmitter Pharmacology", "Opioid Analgesics", "Anticoagulants"]
+                    },
+                    {
+                        name: "Community Medicine",
+                        viva: false,
+                        topics: ["Endemic Diseases (Diphtheria, Tetanus)", "Stroke Prevention", "Snake Bite", "Polio", "Rabies", "Mental Health", "Drug Abuse"]
+                    },
+                    {
+                        name: "Behavioral Sciences",
+                        viva: false,
+                        topics: ["Medical Ethics", "Emotional Intelligence", "Conflict Resolution", "Crisis Intervention"]
+                    }
+                ]
+            },
+            {
+                id: "hn",
+                name: "Head & Neck",
+                subjects: [
+                    {
+                        name: "Gross Anatomy",
+                        viva: true,
+                        topics: ["Skull (Vault, Normas, Sutures, Fontanelles)", "Scalp (Layers, Innervation, Blood Supply)", "Face (Muscles, Nerve Supply, Blood Supply, Venous Drainage)", "Cranial Nerves (Extracranial Course of V & VII)", "Parotid Region & Gland", "Temporal & Infratemporal Fossae (Muscles of Mastication, Mandibular Nerve, Maxillary Artery)", "Temporomandibular Joint (TMJ) & Mandible", "Submandibular Region & Gland", "Triangles of Neck (Anterior & Posterior)", "Deep Cervical Fascia", "Thyroid & Parathyroid Glands (Gross)", "Oral Cavity (Lips, Cheeks, Floor of Mouth)", "Tongue (Muscles, Innervation, Blood Supply, Lymphatics)", "Palate (Hard & Soft, Muscles)", "Pharynx (Muscles, Parts, Nerve Supply)", "Larynx (Cartilages, Muscles, Innervation)", "Nasal Cavity & Paranasal Sinuses", "Ear (External, Middle, Internal - Gross)", "Orbit (Bones, Extraocular Muscles, Nerves, Vessels)", "Eyelids & Lacrimal Apparatus", "Cranial Nerves (I - VI)", "Cranial Nerves (VII - XII)", "Blood Vessels of Head & Neck (Carotid System, Jugular Veins)", "Lymphatic Drainage of Head & Neck"]
+                    },
+                    {
+                        name: "Physiology",
+                        viva: true,
+                        topics: ["Optics of Vision (Refraction, Accommodation, Errors)", "Visual Acuity & Field of Vision", "Phototransduction (Rods & Cones)", "Dark & Light Adaptation", "Color Vision", "Visual Pathway & Lesions", "Pupillary Light Reflex", "Eye Movements & Control", "Aqueous Humor (Formation, Circulation, IOP)", "Hearing Mechanism (Middle Ear Impedance Matching, Cochlear Function)", "Auditory Pathway", "Vestibular System (Equilibrium & Balance)", "Olfaction (Receptors & Pathway)", "Gustation (Receptors & Pathway)"]
+                    },
+                    {
+                        name: "Histology",
+                        viva: true,
+                        topics: ["Eye (Cornea, Retina, Lens, Ciliary Body, Iris)", "Eyelid & Lacrimal Gland", "Ear (Organ of Corti, Cochlea)", "Oral Cavity (Lip, Cheek, Gingiva, Palate)", "Tongue (Papillae, Taste Buds)", "Salivary Glands (Parotid, Submandibular, Sublingual)", "Nasal Cavity (Respiratory & Olfactory Epithelium)", "Thyroid & Parathyroid Glands"]
+                    },
+                    {
+                        name: "Embryology",
+                        viva: true,
+                        topics: ["Pharyngeal Apparatus (Arches, Pouches, Clefts)", "Development of Face, Nose & Palate", "Development of Tongue & Thyroid Gland", "Development of the Eye", "Development of the Ear", "Congenital Anomalies (Cleft Lip/Palate, Thyroglossal Cyst, Branchial Cyst)"]
+                    },
+                    {
+                        name: "Biochemistry",
+                        viva: false,
+                        topics: ["Vitamin A (Chemistry, Sources, Absorption, Transport)", "Visual Cycle (Wald's Visual Cycle)", "Role of Retinaldehyde in Vision", "Vitamin A Deficiency Disorders"]
+                    },
+                    {
+                        name: "Pathology",
+                        viva: false,
+                        topics: ["Neoplastic Lesions of Head & Neck (Oral Cavity, Larynx, Salivary Glands)"]
+                    },
+                    {
+                        name: "Community Medicine",
+                        viva: false,
+                        topics: ["Nuclear Medicine", "School Health Services", "Travel Medicine"]
+                    }
+                ]
+            },
+            {
+                id: "endo",
+                name: "Endocrinology",
+                subjects: [
+                    {
+                        name: "Physiology",
+                        viva: false,
+                        topics: ["Classification & Mechanism of Hormones", "Hypothalamic Hormones", "Anterior Pituitary Hormones (GH, Prolactin, etc.)", "Posterior Pituitary (ADH, Oxytocin)", "Thyroid Hormones (T3, T4)", "Parathyroid Hormone & Calcitonin", "Calcium Homeostasis & Vitamin D", "Insulin, Glucagon, Diabetes Mellitus", "Adrenal Cortex (Cortisol, Aldosterone, Androgens)", "Adrenal Medulla", "Pineal Gland", "Thymus & Local Hormones"]
+                    },
+                    {
+                        name: "Biochemistry",
+                        viva: true,
+                        topics: ["Chemistry of Hormones", "Signal Transduction (cAMP, IP3, etc.)", "Thyroid Synthesis", "Insulin Synthesis & Metabolic Effects", "Cholesterol & Steroid Metabolism", "Adrenal Hormone Metabolism", "Diabetes Mellitus Biochemistry", "Hormonal Regulation of Glucose", "Adrenal Medullary Hormone Metabolism"]
+                    },
+                    {
+                        name: "Gross Anatomy",
+                        viva: false,
+                        topics: ["Hypothalamus", "Pituitary Gland", "Thyroid & Parathyroid", "Pancreas (Gross)", "Adrenal Glands"]
+                    },
+                    {
+                        name: "Histology",
+                        viva: true,
+                        topics: ["Pituitary Gland", "Thyroid & Parathyroid", "Pancreas (Islets)", "Adrenal Gland (Cortex/Medulla)", "Pineal Gland"]
+                    },
+                    {
+                        name: "Embryology",
+                        viva: false,
+                        topics: ["Development of Pituitary", "Development of Thyroid/Parathyroid", "Development of Pancreas", "Development of Adrenal Gland"]
+                    },
+                    {
+                        name: "Pathology",
+                        viva: false,
+                        topics: ["Pituitary Adenomas & Hypopituitarism", "Hyper/Hypothyroidism (Graves, Hashimoto)", "Thyroid Neoplasms", "Hyper/Hypoparathyroidism", "Diabetes Pathogenesis & Complications", "Cushing's Syndrome", "Hyperaldosteronism", "Adrenal Insufficiency (Addison's)", "Pheochromocytoma"]
+                    },
+                    {
+                        name: "Pharmacology",
+                        viva: false,
+                        topics: ["Pituitary Drugs", "Thyroid & Antithyroid Drugs", "Drugs for Parathyroid/Calcium", "Insulin Preparations", "Oral Hypoglycemics", "Corticosteroids"]
+                    },
+                    {
+                        name: "Community Medicine",
+                        viva: false,
+                        topics: ["Non-communicable Diseases Action Plan", "Obesity Prevention", "Diabetes Epidemiology & Control", "Iodine Control Program", "Cancer Epidemiology", "Metabolic Syndrome in South Asia"]
+                    },
+                    {
+                        name: "Medicine",
+                        viva: false,
+                        topics: ["Clinical Disorders of Pituitary", "Metabolic Syndrome", "Interpretation of Adrenal Disorders"]
+                    },
+                    {
+                        name: "Behavioral Sciences",
+                        viva: false,
+                        topics: ["Memory & Related Disorders", "Perception & Related Disorders", "Metacognition", "Empowerment"]
+                    }
+                ]
+            },
             {
                 id: "git",
                 name: "GIT",
@@ -447,58 +738,43 @@
                 ]
             },
             {
-                id: "endo",
-                name: "Endocrinology",
+                id: "renal",
+                name: "Renal",
                 subjects: [
                     {
-                        name: "Physiology",
-                        viva: false,
-                        topics: ["Classification & Mechanism of Hormones", "Hypothalamic Hormones", "Anterior Pituitary Hormones (GH, Prolactin, etc.)", "Posterior Pituitary (ADH, Oxytocin)", "Thyroid Hormones (T3, T4)", "Parathyroid Hormone & Calcitonin", "Calcium Homeostasis & Vitamin D", "Insulin, Glucagon, Diabetes Mellitus", "Adrenal Cortex (Cortisol, Aldosterone, Androgens)", "Adrenal Medulla", "Pineal Gland", "Thymus & Local Hormones"]
-                    },
-                    {
-                        name: "Biochemistry",
-                        viva: true,
-                        topics: ["Chemistry of Hormones", "Signal Transduction (cAMP, IP3, etc.)", "Thyroid Synthesis", "Insulin Synthesis & Metabolic Effects", "Cholesterol & Steroid Metabolism", "Adrenal Hormone Metabolism", "Diabetes Mellitus Biochemistry", "Hormonal Regulation of Glucose", "Adrenal Medullary Hormone Metabolism"]
-                    },
-                    {
                         name: "Gross Anatomy",
-                        viva: false, 
-                        topics: ["Hypothalamus", "Pituitary Gland", "Thyroid & Parathyroid", "Pancreas (Gross)", "Adrenal Glands"]
+                        viva: true,
+                        topics: ["Kidney (Gross Features, Relations, Neurovasculature)", "Ureter (Course, Constrictions, Relations)", "Urinary Bladder (Parts, Relations, Blood Supply)", "Urethra (Male vs Female Structure)", "Surface Anatomy of Urinary System", "Pelvic Floor & Perineum Relevance"]
                     },
                     {
                         name: "Histology",
                         viva: true,
-                        topics: ["Pituitary Gland", "Thyroid & Parathyroid", "Pancreas (Islets)", "Adrenal Gland (Cortex/Medulla)", "Pineal Gland"]
+                        topics: ["Microscopic Structure of Nephron (PCT, DCT, Loop)", "Histology of Collecting Ducts", "Juxtaglomerular Apparatus (JGA) Histology", "Histology of Ureter, Bladder & Urethra (Transitional Epithelium)"]
                     },
                     {
                         name: "Embryology",
-                        viva: false,
-                        topics: ["Development of Pituitary", "Development of Thyroid/Parathyroid", "Development of Pancreas", "Development of Adrenal Gland"]
+                        viva: true,
+                        topics: ["Development of Kidney (Pronephros, Mesonephros, Metanephros)", "Development of Ureter & Collecting System", "Development of Urinary Bladder & Urethra", "Congenital Anomalies (Horseshoe Kidney, Polycystic Kidney, etc.)"]
+                    },
+                    {
+                        name: "Physiology",
+                        viva: true,
+                        topics: ["Body Fluid Compartments & Regulation", "Glomerular Filtration Rate (GFR) & Autoregulation", "Tubular Reabsorption & Secretion (PCT, Loop, DCT, CD)", "Counter-Current Mechanism (Urine Concentration)", "Renal Clearance Concepts", "Acid-Base Balance & Renal Regulation of pH", "Electrolyte Balance (Na+, K+, Ca++, Mg++, Phosphate)", "Renin-Angiotensin-Aldosterone System (RAAS)", "Micturition Reflex & Neural Control"]
+                    },
+                    {
+                        name: "Biochemistry",
+                        viva: true,
+                        topics: ["Renal Function Tests", "Acid-Base Buffers and Disorders", "Purine Metabolism", "Uric Acid/Gout", "Urine Analysis", "Creatinine Metabolism & Clearance Estimation"]
                     },
                     {
                         name: "Pathology",
                         viva: false,
-                        topics: ["Pituitary Adenomas & Hypopituitarism", "Hyper/Hypothyroidism (Graves, Hashimoto)", "Thyroid Neoplasms", "Hyper/Hypoparathyroidism", "Diabetes Pathogenesis & Complications", "Cushing's Syndrome", "Hyperaldosteronism", "Adrenal Insufficiency (Addison's)", "Pheochromocytoma"]
+                        topics: ["Glomerular Diseases (Nephritic vs Nephrotic Syndrome)", "Acute & Chronic Glomerulonephritis", "Acute Tubular Necrosis (ATN) & Tubulointerstitial Diseases", "Pyelonephritis & Urinary Tract Infections (UTI)", "Urolithiasis (Renal Stones Types & Pathogenesis)", "Obstructive Uropathy & Hydronephrosis", "Renal Tumors (Wilms Tumor, RCC)", "Urinary Bladder Tumors", "Renal Failure (Acute & Chronic)"]
                     },
                     {
                         name: "Pharmacology",
                         viva: false,
-                        topics: ["Pituitary Drugs", "Thyroid & Antithyroid Drugs", "Drugs for Parathyroid/Calcium", "Insulin Preparations", "Oral Hypoglycemics", "Corticosteroids"]
-                    },
-                    {
-                        name: "Community Medicine",
-                        viva: false,
-                        topics: ["Non-communicable Diseases Action Plan", "Obesity Prevention", "Diabetes Epidemiology & Control", "Iodine Control Program", "Cancer Epidemiology", "Metabolic Syndrome in South Asia"]
-                    },
-                    {
-                        name: "Medicine",
-                        viva: false,
-                        topics: ["Clinical Disorders of Pituitary", "Metabolic Syndrome", "Interpretation of Adrenal Disorders"]
-                    },
-                    {
-                        name: "Behavioral Sciences",
-                        viva: false,
-                        topics: ["Memory & Related Disorders", "Perception & Related Disorders", "Metacognition", "Empowerment"]
+                        topics: ["Loop Diuretics (Furosemide)", "Thiazide Diuretics", "Potassium-Sparing Diuretics", "Carbonic Anhydrase Inhibitors & Osmotic Diuretics", "Clinical Uses & Side Effects of Diuretics"]
                     }
                 ]
             },
@@ -564,139 +840,6 @@
                 ]
             },
             {
-                id: "hn",
-                name: "Head & Neck",
-                subjects: [
-                    {
-                        name: "Gross Anatomy",
-                        viva: true,
-                        topics: ["Skull (Vault, Normas, Sutures, Fontanelles)", "Scalp (Layers, Innervation, Blood Supply)", "Face (Muscles, Nerve Supply, Blood Supply, Venous Drainage)", "Cranial Nerves (Extracranial Course of V & VII)", "Parotid Region & Gland", "Temporal & Infratemporal Fossae (Muscles of Mastication, Mandibular Nerve, Maxillary Artery)", "Temporomandibular Joint (TMJ) & Mandible", "Submandibular Region & Gland", "Triangles of Neck (Anterior & Posterior)", "Deep Cervical Fascia", "Thyroid & Parathyroid Glands (Gross)", "Oral Cavity (Lips, Cheeks, Floor of Mouth)", "Tongue (Muscles, Innervation, Blood Supply, Lymphatics)", "Palate (Hard & Soft, Muscles)", "Pharynx (Muscles, Parts, Nerve Supply)", "Larynx (Cartilages, Muscles, Innervation)", "Nasal Cavity & Paranasal Sinuses", "Ear (External, Middle, Internal - Gross)", "Orbit (Bones, Extraocular Muscles, Nerves, Vessels)", "Eyelids & Lacrimal Apparatus", "Cranial Nerves (I - VI)", "Cranial Nerves (VII - XII)", "Blood Vessels of Head & Neck (Carotid System, Jugular Veins)", "Lymphatic Drainage of Head & Neck"]
-                    },
-                    {
-                        name: "Physiology",
-                        viva: true,
-                        topics: ["Optics of Vision (Refraction, Accommodation, Errors)", "Visual Acuity & Field of Vision", "Phototransduction (Rods & Cones)", "Dark & Light Adaptation", "Color Vision", "Visual Pathway & Lesions", "Pupillary Light Reflex", "Eye Movements & Control", "Aqueous Humor (Formation, Circulation, IOP)", "Hearing Mechanism (Middle Ear Impedance Matching, Cochlear Function)", "Auditory Pathway", "Vestibular System (Equilibrium & Balance)", "Olfaction (Receptors & Pathway)", "Gustation (Receptors & Pathway)"]
-                    },
-                    {
-                        name: "Histology",
-                        viva: true,
-                        topics: ["Eye (Cornea, Retina, Lens, Ciliary Body, Iris)", "Eyelid & Lacrimal Gland", "Ear (Organ of Corti, Cochlea)", "Oral Cavity (Lip, Cheek, Gingiva, Palate)", "Tongue (Papillae, Taste Buds)", "Salivary Glands (Parotid, Submandibular, Sublingual)", "Nasal Cavity (Respiratory & Olfactory Epithelium)", "Thyroid & Parathyroid Glands"]
-                    },
-                    {
-                        name: "Embryology",
-                        viva: true,
-                        topics: ["Pharyngeal Apparatus (Arches, Pouches, Clefts)", "Development of Face, Nose & Palate", "Development of Tongue & Thyroid Gland", "Development of the Eye", "Development of the Ear", "Congenital Anomalies (Cleft Lip/Palate, Thyroglossal Cyst, Branchial Cyst)"]
-                    },
-                    {
-                        name: "Biochemistry",
-                        viva: false,
-                        topics: ["Vitamin A (Chemistry, Sources, Absorption, Transport)", "Visual Cycle (Wald's Visual Cycle)", "Role of Retinaldehyde in Vision", "Vitamin A Deficiency Disorders"]
-                    },
-                    {
-                        name: "Pathology",
-                        viva: false,
-                        topics: ["Neoplastic Lesions of Head & Neck (Oral Cavity, Larynx, Salivary Glands)"]
-                    },
-                    {
-                        name: "Community Medicine",
-                        viva: false,
-                        topics: ["Nuclear Medicine", "School Health Services", "Travel Medicine"]
-                    }
-                ]
-            },
-            {
-                id: "neuro",
-                name: "Neurosciences",
-                subjects: [
-                    {
-                        name: "Gross Anatomy",
-                        viva: true,
-                        topics: ["Skull & Cranial Fossae", "Meninges", "Spinal Cord (Gross, Tracts)", "Brainstem (Medulla, Pons, Midbrain)", "Cranial Nerve Nuclei", "Cerebellum (Gross)", "Diencephalon (Thalamus/Hypothalamus)", "Cerebral Cortex (Functional Areas)", "Basal Nuclei", "Internal Capsule", "Blood Supply (Circle of Willis)", "Ventricles & CSF", "Limbic System"]
-                    },
-                    {
-                        name: "Physiology",
-                        viva: true,
-                        topics: ["Neuron Potentials", "Synapse", "Sensory Pathways (DCML, AL)", "Motor Pathways (Corticospinal)", "Reflexes", "Cerebellum Functions", "Basal Ganglia Functions", "Hypothalamus/Thalamus", "Sleep/EEG", "ANS", "Pain Pathway"]
-                    },
-                    {
-                        name: "Biochemistry",
-                        viva: true,
-                        topics: ["Neurotransmitters", "Neurotropic Vitamins (B1, B6, B12)", "Blood Brain Barrier", "Brain Metabolism", "Dopamine & Parkinsonism", "Serotonin & Pain", "Neurolipids"]
-                    },
-                    {
-                        name: "Pathology",
-                        viva: false,
-                        topics: ["Cellular Pathology of CNS", "Cerebral Edema/Herniation", "Traumatic Injury", "Cerebrovascular Disease (Stroke)", "CNS Infections (Meningitis)", "Prion Disease", "Neuromuscular Junction Disorders"]
-                    },
-                    {
-                        name: "Embryology",
-                        viva: true,
-                        topics: ["Development of the Nervous System", "Development of the Brain", "Developmental Anomalies"]
-                    },
-                    {
-                        name: "Histology",
-                        viva: true,
-                        topics: ["Nervous Tissue", "Cerebellar Cortex", "Cerebral Cortex"]
-                    },
-                    {
-                        name: "Pharmacology",
-                        viva: false,
-                        topics: ["Neurotransmitter Pharmacology", "Opioid Analgesics", "Anticoagulants"]
-                    },
-                    {
-                        name: "Community Medicine",
-                        viva: false,
-                        topics: ["Endemic Diseases (Diphtheria, Tetanus)", "Stroke Prevention", "Snake Bite", "Polio", "Rabies", "Mental Health", "Drug Abuse"]
-                    },
-                    {
-                        name: "Behavioral Sciences",
-                        viva: false,
-                        topics: ["Medical Ethics", "Emotional Intelligence", "Conflict Resolution", "Crisis Intervention"]
-                    }
-                ]
-            },
-            {
-                id: "renal",
-                name: "Renal",
-                subjects: [
-                    {
-                        name: "Gross Anatomy",
-                        viva: true,
-                        topics: ["Kidney (Gross Features, Relations, Neurovasculature)", "Ureter (Course, Constrictions, Relations)", "Urinary Bladder (Parts, Relations, Blood Supply)", "Urethra (Male vs Female Structure)", "Surface Anatomy of Urinary System", "Pelvic Floor & Perineum Relevance"]
-                    },
-                    {
-                        name: "Histology",
-                        viva: true,
-                        topics: ["Microscopic Structure of Nephron (PCT, DCT, Loop)", "Histology of Collecting Ducts", "Juxtaglomerular Apparatus (JGA) Histology", "Histology of Ureter, Bladder & Urethra (Transitional Epithelium)"]
-                    },
-                    {
-                        name: "Embryology",
-                        viva: true,
-                        topics: ["Development of Kidney (Pronephros, Mesonephros, Metanephros)", "Development of Ureter & Collecting System", "Development of Urinary Bladder & Urethra", "Congenital Anomalies (Horseshoe Kidney, Polycystic Kidney, etc.)"]
-                    },
-                    {
-                        name: "Physiology",
-                        viva: true,
-                        topics: ["Body Fluid Compartments & Regulation", "Glomerular Filtration Rate (GFR) & Autoregulation", "Tubular Reabsorption & Secretion (PCT, Loop, DCT, CD)", "Counter-Current Mechanism (Urine Concentration)", "Renal Clearance Concepts", "Acid-Base Balance & Renal Regulation of pH", "Electrolyte Balance (Na+, K+, Ca++, Mg++, Phosphate)", "Renin-Angiotensin-Aldosterone System (RAAS)", "Micturition Reflex & Neural Control"]
-                    },
-                    {
-                        name: "Biochemistry",
-                        viva: true,
-                        topics: ["Renal Function Tests", "Acid-Base Buffers and Disorders", "Purine Metabolism", "Uric Acid/Gout", "Urine Analysis", "Creatinine Metabolism & Clearance Estimation"]
-                    },
-                    {
-                        name: "Pathology",
-                        viva: false,
-                        topics: ["Glomerular Diseases (Nephritic vs Nephrotic Syndrome)", "Acute & Chronic Glomerulonephritis", "Acute Tubular Necrosis (ATN) & Tubulointerstitial Diseases", "Pyelonephritis & Urinary Tract Infections (UTI)", "Urolithiasis (Renal Stones Types & Pathogenesis)", "Obstructive Uropathy & Hydronephrosis", "Renal Tumors (Wilms Tumor, RCC)", "Urinary Bladder Tumors", "Renal Failure (Acute & Chronic)"]
-                    },
-                    {
-                        name: "Pharmacology",
-                        viva: false,
-                        topics: ["Loop Diuretics (Furosemide)", "Thiazide Diuretics", "Potassium-Sparing Diuretics", "Carbonic Anhydrase Inhibitors & Osmotic Diuretics", "Clinical Uses & Side Effects of Diuretics"]
-                    }
-                ]
-            },
-            {
                 id: "gened",
                 name: "General Education",
                 isGenEd: true,
@@ -744,7 +887,7 @@
         function renderPersonalTracker() {
             const container = document.getElementById('personal-tracker-grid');
             const savedState = JSON.parse(localStorage.getItem('mbbsChecklist')) || {};
-            
+
             const progressData = {};
             personalTrackerModules.forEach(m => { progressData[m.name] = { total: 0, done: 0 }; });
 
@@ -768,7 +911,7 @@
             checklistData.forEach(item => {
                 let key = item.module;
                 if (key === "GIT") key = "GIT & Liver";
-                
+
                 if (progressData[key]) {
                     progressData[key].total++;
                     const uniqueId = item.task.replace(/[^a-zA-Z0-9]/g, '');
@@ -778,18 +921,19 @@
 
             container.innerHTML = personalTrackerModules.map(mod => {
                 // Removed the filter that hid General Education
-                
+
                 const stats = progressData[mod.name] || { total: 1, done: 0 };
                 const percent = Math.round((stats.done / stats.total) * 100) || 0;
-                
+
                 return `
-                <div class="personal-tracker-card bg-white dark:bg-slate-900 rounded-lg p-4 border border-slate-100 dark:border-slate-800 flex flex-col items-center text-center cursor-pointer transition-colors" onclick="filterByModule('${mod.id}')">
-                    <div class="w-10 h-10 rounded-full bg-indigo-50 dark:bg-indigo-900/30 flex items-center justify-center mb-3 text-indigo-600 dark:text-indigo-400">
+                <div class="glass-card personal-tracker-card rounded-xl p-4 flex flex-col items-center text-center cursor-pointer transition-all hover:bg-white/50 dark:hover:bg-white/5 relative overflow-hidden group" onclick="filterByModule('${mod.id}')">
+                    <div class="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div class="w-10 h-10 rounded-full bg-indigo-50/50 dark:bg-indigo-900/30 flex items-center justify-center mb-3 text-indigo-600 dark:text-indigo-400 backdrop-blur-sm shadow-inner">
                         <i class="fa-solid ${mod.icon}"></i>
                     </div>
                     <h3 class="font-bold text-sm text-slate-800 dark:text-slate-200 mb-1 whitespace-nowrap overflow-hidden text-ellipsis w-full" title="${mod.name}">${mod.name}</h3>
-                    <div class="w-full bg-slate-100 dark:bg-slate-700 rounded-full h-1.5 mb-2">
-                        <div class="bg-emerald-500 h-1.5 rounded-full transition-all duration-500" style="width: ${percent}%"></div>
+                    <div class="w-full bg-slate-200/50 dark:bg-slate-700/50 rounded-full h-1.5 mb-2 backdrop-blur-sm">
+                        <div class="bg-emerald-500 h-1.5 rounded-full transition-all duration-500 shadow-[0_0_10px_rgba(16,185,129,0.3)]" style="width: ${percent}%"></div>
                     </div>
                     <p class="text-xs text-slate-500 dark:text-slate-400 font-semibold">${percent}% Complete</p>
                 </div>
@@ -801,12 +945,12 @@
         function initChecklist() {
             const container = document.getElementById('checklist-container');
             const filter = document.getElementById('checklist-filter');
-            
+
             const savedState = JSON.parse(localStorage.getItem('mbbsChecklist')) || {};
 
             function render(filterValue) {
                 container.innerHTML = '';
-                
+
                 // Flatten data for rendering
                 const checklistData = [];
                 rawModulesData.forEach(mod => {
@@ -837,78 +981,154 @@
                 });
 
                 const filteredData = filterValue === 'all' ? checklistData : checklistData.filter(i => {
-                    if(filterValue === "GIT" && i.module === "GIT") return true;
-                    if(filterValue === "Renal" && i.module === "Renal") return true;
-                    if(filterValue === "Neurosciences" && i.module === "Neurosciences") return true;
-                    if(filterValue === "Head & Neck" && i.module === "Head & Neck") return true;
-                    if(filterValue === "Endocrinology" && i.module === "Endocrinology") return true;
-                    if(filterValue === "Reproductive" && i.module === "Reproductive") return true;
-                    if(filterValue === "General Education" && i.module === "General Education") return true;
+                    if (filterValue === "GIT" && i.module === "GIT") return true;
+                    if (filterValue === "Renal" && i.module === "Renal") return true;
+                    if (filterValue === "Neurosciences" && i.module === "Neurosciences") return true;
+                    if (filterValue === "Head & Neck" && i.module === "Head & Neck") return true;
+                    if (filterValue === "Endocrinology" && i.module === "Endocrinology") return true;
+                    if (filterValue === "Reproductive" && i.module === "Reproductive") return true;
+                    if (filterValue === "General Education" && i.module === "General Education") return true;
+                    // Handle "GIT & Liver" option value mapping to "GIT" module ID
+                    if (filterValue === "GIT & Liver" && i.module === "GIT") return true;
                     return false;
                 });
-                
+
                 if (filteredData.length === 0) {
                     container.innerHTML = '<div class="p-8 text-center text-slate-400 dark:text-slate-500">No items found.</div>';
                     return;
                 }
 
+                // Group by Subject for Accordion
+                const groupedBySubject = {};
+                filteredData.forEach(item => {
+                    if (!groupedBySubject[item.subject]) groupedBySubject[item.subject] = [];
+                    groupedBySubject[item.subject].push(item);
+                });
+
+                // Clear container and rebuild
+                container.innerHTML = '';
+
+                if (Object.keys(groupedBySubject).length === 0) {
+                    container.innerHTML = '<div class="p-8 text-center text-slate-400 dark:text-slate-500">No items found.</div>';
+                    return;
+                }
+
+                // If "All Modules" is selected, we might want to group by Module first, then Subject.
+                // But the requested change was "Collapsible subjects".
+                // Since the original code had grouping by Module headers, let's preserve that structure but make subjects collapsible within modules.
+
                 let currentMod = '';
 
                 filteredData.forEach((item, idx) => {
-                    const uniqueId = item.task.replace(/[^a-zA-Z0-9]/g, '');
-                    const isChecked = savedState[uniqueId] || false;
-
                     if (filterValue === 'all' && item.module !== currentMod) {
                         currentMod = item.module;
                         let displayModName = currentMod;
-                        if(currentMod === "GIT") displayModName = "GIT & Liver";
-                        
-                        const headerColor = currentMod === "General Education" ? "bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400" : "bg-slate-50 dark:bg-slate-800 text-slate-500 dark:text-slate-400";
-                        
-                        container.innerHTML += `<div class="${headerColor} px-6 py-2 text-xs font-bold uppercase tracking-wider sticky top-0 border-t border-b border-slate-200 dark:border-slate-700 mt-2 z-10">${displayModName}</div>`;
+                        if (currentMod === "GIT") displayModName = "GIT & Liver";
+
+                        const headerColor = currentMod === "General Education" ?
+                            "glass-card bg-emerald-50/80 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400" :
+                            "glass-card text-slate-600 dark:text-slate-300";
+
+                        container.innerHTML += `<div class="${headerColor} px-6 py-2 text-xs font-bold uppercase tracking-wider sticky top-0 mt-4 z-10 backdrop-blur-md shadow-sm flex items-center gap-2">
+                    ${currentMod === "General Education" ? '<i class="fa-solid fa-book-open"></i>' : '<i class="fa-solid fa-layer-group"></i>'}
+                    ${displayModName}
+                </div>`;
+                    }
+                });
+
+                // Re-rendering strategy: 
+                // We need to iterate again or restructure. Let's do a cleaner approach: Group by Module -> Subject -> Topics.
+
+                const structure = {};
+                filteredData.forEach(item => {
+                    if (!structure[item.module]) structure[item.module] = {};
+                    if (!structure[item.module][item.subject]) structure[item.module][item.subject] = [];
+                    structure[item.module][item.subject].push(item);
+                });
+
+                container.innerHTML = ''; // Reset again for structure based rendering
+
+                for (const modName in structure) {
+                    if (filterValue === 'all') {
+                        let displayModName = modName;
+                        if (modName === "GIT") displayModName = "GIT & Liver";
+                        const headerColor = modName === "General Education" ? "bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400" : "glass-card bg-slate-50/80 dark:bg-slate-800/80 text-slate-500 dark:text-slate-400";
+                        container.innerHTML += `<div class="${headerColor} px-6 py-2 text-xs font-bold uppercase tracking-wider sticky top-0 border-t border-b border-slate-200 dark:border-slate-700 mt-2 z-10 backdrop-blur-md">${displayModName}</div>`;
                     }
 
-                    const div = document.createElement('div');
-                    div.className = `checklist-item px-6 py-4 flex items-start gap-4 transition-all hover:bg-slate-50 dark:hover:bg-slate-800/50 ${isChecked ? 'checked' : 'text-slate-800 dark:text-slate-300'}`;
-                    
-                    div.innerHTML = `
-                        <div class="pt-1">
-                            <div class="check-circle w-5 h-5 border-2 border-slate-300 dark:border-slate-600 rounded-full flex items-center justify-center transition-colors cursor-pointer ${isChecked ? 'bg-emerald-500 border-emerald-500' : ''}" onclick="toggleCheck('${uniqueId}', this)">
-                                ${isChecked ? '<i class="fa-solid fa-check text-white text-xs"></i>' : ''}
+                    for (const subName in structure[modName]) {
+                        const topics = structure[modName][subName];
+                        const subjectUniqueId = `subj-${modName}-${subName}`.replace(/[^a-zA-Z0-9-]/g, '');
+
+                        // Check if all topics in this subject are done
+                        const allDone = topics.every(t => savedState[t.task.replace(/[^a-zA-Z0-9]/g, '')]);
+                        const folderIcon = allDone ? 'fa-folder-open text-emerald-500' : 'fa-folder text-slate-400';
+
+                        let html = `
+                        <details class="group open:bg-slate-50 dark:open:bg-slate-800/30 transition-colors duration-300 border-b border-slate-100 dark:border-slate-800" ${filterValue !== 'all' ? 'open' : ''}>
+                            <summary class="px-6 py-3 cursor-pointer flex items-center justify-between hover:bg-slate-50 dark:hover:bg-slate-800/50 outline-none select-none">
+                                <div class="flex items-center gap-3">
+                                    <i class="fa-solid ${folderIcon} text-sm transition-colors"></i>
+                                    <span class="font-bold text-sm text-slate-700 dark:text-slate-200">${subName}</span>
+                                    <span class="text-xs bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-full text-slate-500">${topics.length}</span>
+                                </div>
+                                <i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i>
+                            </summary>
+                            <div class="px-0 pb-2">
+                        `;
+
+                        topics.forEach(item => {
+                            const uniqueId = item.task.replace(/[^a-zA-Z0-9]/g, '');
+                            const isChecked = savedState[uniqueId] || false;
+
+                            html += `
+                            <div class="checklist-item flex items-start gap-3 p-3 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-all cursor-pointer ${isChecked ? 'checked' : ''}" onclick="toggleCheck('${uniqueId}', this)">
+                                <div class="check-circle min-w-[20px] h-[20px] rounded-full border-2 border-slate-300 dark:border-slate-600 flex items-center justify-center transition-colors mt-0.5">
+                                    <i class="fa-solid fa-check text-white text-[10px] opacity-0 transition-opacity"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex items-center gap-2 mb-0.5">
+                                        ${item.isViva ? '<span class="viva-badge px-1.5 py-0.5 rounded text-[10px] font-bold bg-rose-100 text-rose-600 dark:bg-rose-900/30 dark:text-rose-400">VIVA</span>' : ''}
+                                        <p class="text-sm font-medium text-slate-700 dark:text-slate-300 transition-opacity leading-tight">${item.task}</p>
+                                    </div>
+                                </div>
                             </div>
+                            `;
+                        });
+                        html += `
+                        <div class="px-3 pb-3 pt-2 flex justify-end">
+                             <button onclick="this.closest('details').removeAttribute('open')" class="text-xs text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors flex items-center gap-1">
+                                <i class="fa-solid fa-chevron-up"></i> Minimize
+                             </button>
                         </div>
-                        <div class="flex-1">
-                            <p class="text-sm font-medium leading-snug transition-colors">${item.task}</p>
-                            <div class="flex items-center gap-2 mt-1">
-                                <span class="text-xs inline-block px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-700">${item.subject}</span>
-                                ${item.isViva ? '<span class="viva-badge text-[10px] font-bold text-white bg-rose-500 px-2 py-0.5 rounded-full shadow-sm shadow-rose-500/30">VIVA IMPORTANT</span>' : ''}
-                            </div>
-                        </div>
-                    `;
-                    container.appendChild(div);
-                });
+                        </div></details>`;
+                        container.innerHTML += html;
+                    }
+                }
             }
 
             window.toggleCheck = (id, circle) => {
                 savedState[id] = !savedState[id];
                 localStorage.setItem('mbbsChecklist', JSON.stringify(savedState));
                 updateProgress();
-                
+
                 const parent = circle.closest('.checklist-item');
-                
+
                 if (savedState[id]) {
                     parent.classList.add('checked');
-                    parent.classList.remove('text-slate-800', 'dark:text-slate-300'); 
-                    
+                    parent.classList.remove('text-slate-800', 'dark:text-slate-300');
+
                     circle.classList.add('bg-emerald-500', 'border-emerald-500');
                     circle.innerHTML = '<i class="fa-solid fa-check text-white text-xs"></i>';
                 } else {
                     parent.classList.remove('checked');
                     parent.classList.add('text-slate-800', 'dark:text-slate-300');
-                    
+
                     circle.classList.remove('bg-emerald-500', 'border-emerald-500');
                     circle.innerHTML = '';
                 }
+                // Re-render the current filter to update folder icons
+                render(document.getElementById('checklist-filter').value);
             };
 
             filter.addEventListener('change', (e) => render(e.target.value));
@@ -921,11 +1141,11 @@
             select.value = moduleName;
             const event = new Event('change');
             select.dispatchEvent(event);
-            document.getElementById('checklist-section').scrollIntoView({behavior: 'smooth'});
+            document.getElementById('checklist-section').scrollIntoView({ behavior: 'smooth' });
         }
 
         function resetPersonalTracker() {
-            if(confirm("Reset all progress? This cannot be undone.")) {
+            if (confirm("Reset all progress? This cannot be undone.")) {
                 localStorage.removeItem('mbbsChecklist');
                 localStorage.removeItem('mbbsStudentProfile');
                 location.reload();
@@ -936,7 +1156,7 @@
             const savedState = JSON.parse(localStorage.getItem('mbbsChecklist')) || {};
             const checklistData = [];
             rawModulesData.forEach(mod => {
-                if (mod.isGenEd) return; 
+                if (mod.isGenEd) return;
 
                 mod.subjects.forEach(sub => {
                     sub.topics.forEach(topic => {
@@ -959,6 +1179,33 @@
                 prepChart.update();
             }
 
+            // Confetti Trigger
+            if (percent === 100) {
+                const end = Date.now() + 2 * 1000;
+                const colors = ['#10b981', '#3b82f6'];
+
+                (function frame() {
+                    confetti({
+                        particleCount: 2,
+                        angle: 60,
+                        spread: 55,
+                        origin: { x: 0 },
+                        colors: colors
+                    });
+                    confetti({
+                        particleCount: 2,
+                        angle: 120,
+                        spread: 55,
+                        origin: { x: 1 },
+                        colors: colors
+                    });
+
+                    if (Date.now() < end) {
+                        requestAnimationFrame(frame);
+                    }
+                }());
+            }
+
             renderPersonalTracker();
         }
 
@@ -967,42 +1214,83 @@
         function updateCountdown() {
             const today = new Date();
             const examGrid = document.getElementById('exam-grid');
-            
+
             // Get dates dynamically based on roll number
             const examData = getExamDates();
-            
+
             examGrid.innerHTML = examData.map(ex => {
                 const examDate = new Date(ex.date);
-                const diff = Math.ceil((examDate - today) / (1000 * 60 * 60 * 24));
-                const days = diff > 0 ? diff : "DONE";
-                
+                const diffTime = examDate - today;
+
+                // Conversions
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                const diffHours = Math.ceil(diffTime / (1000 * 60 * 60));
+
+                let timeDisplay = "";
+                let subtext = "";
+
+                if (diffTime < 0) {
+                    // Check if it was today (within 24 hours passed) or actually past
+                    const isToday = today.getDate() === examDate.getDate() && today.getMonth() === examDate.getMonth();
+                    if (diffDays === 0 || isToday) { // simplistic check
+                        timeDisplay = "TODAY";
+                        subtext = "Good Luck!";
+                    } else {
+                        timeDisplay = "DONE";
+                        subtext = "Completed";
+                    }
+                } else if (diffHours < 24) {
+                    timeDisplay = `${diffHours}h`;
+                    subtext = "Hours Left";
+                } else {
+                    timeDisplay = diffDays;
+                    subtext = "Days Left";
+                }
+
+                // Format Date: "Jan 22 • 9 AM"
+                const options = { month: 'short', day: 'numeric' };
+                const dateStr = examDate.toLocaleDateString('en-US', options);
+                let hours = examDate.getHours();
+                const ampm = hours >= 12 ? 'PM' : 'AM';
+                hours = hours % 12;
+                hours = hours ? hours : 12;
+                const timeStr = `${hours} ${ampm}`;
+
                 const colorMap = {
-                    indigo: 'bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 border-indigo-100 dark:border-indigo-800',
-                    blue: 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 border-blue-100 dark:border-blue-800',
-                    purple: 'bg-purple-50 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400 border-purple-100 dark:border-purple-800',
-                    rose: 'bg-rose-50 dark:bg-rose-900/20 text-rose-600 dark:text-rose-400 border-rose-100 dark:border-rose-800',
-                    orange: 'bg-orange-50 dark:bg-orange-900/20 text-orange-600 dark:text-orange-400 border-orange-100 dark:border-orange-800',
-                    cyan: 'bg-cyan-50 dark:bg-cyan-900/20 text-cyan-600 dark:text-cyan-400 border-cyan-100 dark:border-cyan-800',
-                    pink: 'bg-pink-50 dark:bg-pink-900/20 text-pink-600 dark:text-pink-400 border-pink-100 dark:border-pink-800',
-                    emerald: 'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 border-emerald-100 dark:border-emerald-800',
+                    indigo: 'bg-indigo-50/50 dark:bg-indigo-900/10 text-indigo-600 dark:text-indigo-400 border-indigo-100 dark:border-indigo-800',
+                    blue: 'bg-blue-50/50 dark:bg-blue-900/10 text-blue-600 dark:text-blue-400 border-blue-100 dark:border-blue-800',
+                    purple: 'bg-purple-50/50 dark:bg-purple-900/10 text-purple-600 dark:text-purple-400 border-purple-100 dark:border-purple-800',
+                    rose: 'bg-rose-50/50 dark:bg-rose-900/10 text-rose-600 dark:text-rose-400 border-rose-100 dark:border-rose-800',
+                    orange: 'bg-orange-50/50 dark:bg-orange-900/10 text-orange-600 dark:text-orange-400 border-orange-100 dark:border-orange-800',
+                    cyan: 'bg-cyan-50/50 dark:bg-cyan-900/10 text-cyan-600 dark:text-cyan-400 border-cyan-100 dark:border-cyan-800',
+                    pink: 'bg-pink-50/50 dark:bg-pink-900/10 text-pink-600 dark:text-pink-400 border-pink-100 dark:border-pink-800',
+                    emerald: 'bg-emerald-50/50 dark:bg-emerald-900/10 text-emerald-600 dark:text-emerald-400 border-emerald-100 dark:border-emerald-800',
                 };
-                
-                let classes = `rounded-lg p-3 border transition-all ${colorMap[ex.color]} flex flex-col justify-center min-h-[90px]`;
-                if(diff < 0) classes += " opacity-50 grayscale";
-                
+
+                let classes = `rounded-lg p-3 border transition-all ${colorMap[ex.color]} flex flex-col justify-center min-h-[100px] glass-card shadow-sm hover:scale-[1.02]`;
+                if (diffTime < 0 && timeDisplay === "DONE") classes += " opacity-50 grayscale";
+
                 return `
                 <div class="${classes}">
-                    <p class="text-[10px] font-bold uppercase tracking-wide w-full overflow-hidden text-ellipsis whitespace-nowrap" title="${ex.name}">${ex.name}</p>
-                    <p class="text-2xl font-black my-1">${days}</p>
-                    <p class="text-[10px] font-medium opacity-80">${diff <= 0 ? (diff === 0 ? "TODAY" : "Passed") : "Days Left"}</p>
+                    <div class="flex justify-between items-start mb-1">
+                        <p class="text-[10px] font-bold uppercase tracking-wide w-full overflow-hidden text-ellipsis whitespace-nowrap opacity-90" title="${ex.name}">${ex.name}</p>
+                    </div>
+                    
+                    <p class="text-3xl font-bold my-0 leading-tight tracking-tight">${timeDisplay}</p>
+                    <p class="text-[10px] font-medium opacity-70 uppercase tracking-widest mb-2">${subtext}</p>
+                    
+                    <div class="mt-auto pt-2 border-t border-black/5 dark:border-white/5 flex items-center gap-1.5 opacity-80">
+                         <i class="fa-regular fa-calendar text-[10px]"></i>
+                         <span class="text-[10px] font-semibold">${dateStr} • ${timeStr}</span>
+                    </div>
                 </div>
                 `;
             }).join('');
         }
 
         function updateChartTheme(isDark) {
-            if(!prepChart) return;
-            const remainingColor = isDark ? '#334155' : '#e2e8f0'; 
+            if (!prepChart) return;
+            const remainingColor = isDark ? '#334155' : '#e2e8f0';
             prepChart.data.datasets[0].backgroundColor = ['#10b981', remainingColor];
             prepChart.update();
         }
@@ -1027,13 +1315,13 @@
                     responsive: true,
                     maintainAspectRatio: false,
                     plugins: {
-                        legend: { 
+                        legend: {
                             position: 'bottom',
                             labels: {
-                                color: isDark ? '#e2e8f0' : '#1e293b' 
+                                color: isDark ? '#e2e8f0' : '#1e293b'
                             }
                         },
-                        tooltip: { callbacks: { label: function(context) { return context.label + ': ' + context.raw + '%'; } } }
+                        tooltip: { callbacks: { label: function (context) { return context.label + ': ' + context.raw + '%'; } } }
                     }
                 }
             });
@@ -1050,8 +1338,3 @@
 </body>
 
 </html>
-
-
-
-
-
